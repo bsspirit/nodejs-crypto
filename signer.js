@@ -21,29 +21,16 @@ function verify(algorithm,pub,sig,data){
 }
 
 var algorithm = 'RSA-SHA256';
-var data = "abcdef"
+var data = "abcdef";   //传输的数据
 var privatePem = fs.readFileSync('server.pem');
 var key = privatePem.toString();
-var sig = signer(algorithm,key,data);
+var sig = signer(algorithm,key,data); //数字签名
 
 var publicPem = fs.readFileSync('cert.pem');
 var pubkey = publicPem.toString();
-console.log(verify(algorithm,pubkey,sig,data));
+console.log(verify(algorithm,pubkey,sig,data));         //验证数据，通过公钥、数字签名 =》是原始数据
+console.log(verify(algorithm,pubkey,sig,data+"2"));    //验证数据，通过公钥、数字签名  =》不是原始数据
 
-//var privatePem = fs.readFileSync('server.pem');
-//var publicPem = fs.readFileSync('cert.pem');
-//var key = privatePem.toString();
-//var pubkey = publicPem.toString();
-//
-//var algorithm = 'RSA-SHA256';
-//var data = "abcdef"
-//var sign = crypto.createSign(algorithm);
-//sign.update(data);
-//var sig = sign.sign(key, 'hex');
-//
-//var verify = crypto.createVerify(algorithm);
-//verify.update(data);
-//console.log(verify.verify(pubkey, sig, 'hex'));
 
 
 
